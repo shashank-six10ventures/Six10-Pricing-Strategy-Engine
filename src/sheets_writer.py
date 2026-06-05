@@ -376,7 +376,8 @@ def backfill_implemented_dates_from_pipeline(
         pa = latest_actions[key]
         history_df.at[idx, "implemented_date"]        = pa.get("actioned_date")
         history_df.at[idx, "actual_action_taken"]     = pa.get("actual_action_taken", "")
-        history_df.at[idx, "actual_price_implemented"] = pa.get("actual_price_implemented")
+        price_val = pa.get("actual_price_implemented")
+        history_df.at[idx, "actual_price_implemented"] = str(price_val) if price_val is not None else ""
         backfilled += 1
 
     if backfilled:
